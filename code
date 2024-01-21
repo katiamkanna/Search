@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #search-box {
+            width: 300px;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        #results {
+            margin-top: 20px;
+        }
+
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const articles = [
+                ";plc;fv;lfv;fd;lfglkldfd;lf;lfdgld.",
+                "Sdfkolfdkldgl;f;sldqua.",
+                "p;vlvf;dvlsdfkfggklfdkg.",
+                "dkdfkldfl,vdf,ld,;d.",
+                "djkdcklsdcfklvkscs;ldflkdglfs."
+            ];
+
+            function search() {
+                const query = document.getElementById('search-box').value.toLowerCase();
+                const resultsContainer = document.getElementById('results');
+                resultsContainer.innerHTML = '';
+
+                articles.forEach((article, index) => {
+                    const lowerCasedArticle = article.toLowerCase();
+                    const startIndex = lowerCasedArticle.indexOf(query);
+
+                    if (startIndex !== -1) {
+                        const matchedText = article.substr(startIndex, query.length);
+                        const remainingText = article.substr(startIndex + query.length);
+                        const resultElement = document.createElement('div');
+                        resultElement.innerHTML = `${index + 1}. ...${article.substring(0, startIndex)}<span class="highlight">${matchedText}</span>${remainingText}...`;
+                        resultsContainer.appendChild(resultElement);
+                    }
+                });
+            }
+
+            document.getElementById('search-box').addEventListener('input', search);
+        });
+    </script>
+</head>
+<body>
+    <input type="text" id="search-box" placeholder="Type your search here">
+    <div id="results"></div>
+</body>
+</html>
